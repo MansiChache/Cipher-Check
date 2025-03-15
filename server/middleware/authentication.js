@@ -7,10 +7,17 @@ module.exports.signToken = data => {
 
 module.exports.verifyJWT = async (req, res, next) => {
     const header = req.headers.authorization;
-    const token = header ? header.split(' ')[1] : null;
-    if (!token) return res.json({ response: 'fail', message: 'Token not found' });
+    const token = header && header.startsWith("Bearer ") ? header.split(' ')[1] : null;
+    // if (!token) return res.json({ response: 'fail', message: 'Token not found' });
+    // jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    //     if (err) return res.json({ response: 'fail', message: 'Token Expired' });
+    //     req.user = user;
+    //     return next()
+    // })
+
+    if (!token) return res.status(401).json({ response: 'fail', message: 'Token not found' });
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.json({ response: 'fail', message: 'Token Expired' });
+        if (err) return res.status(403).json({ response: 'fail', message: 'Token Expired' });
         req.user = user;
         return next()
     })
