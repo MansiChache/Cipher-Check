@@ -13,7 +13,7 @@ export default function Login({ goToPage }) {
     const uid = Number(form.uid.value),
       password = form.password.value;
     setError(null);
-    FETCH("/api/auth/login", "POST", null, { uid, password })
+    FETCH("/auth/login", "POST", null, { uid, password })
       .then(res => {
         if (res.response === "fail") throw res.message;
         form['login-button'].disabled = false;
