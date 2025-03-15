@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { USERCONTEXT } from '../../../App';
 import { FETCH } from "../../../utils";
 
-// uid<Number>,password<String> -> /auth/login
 export default function Login({ goToPage }) {
   const [, setUser, ] = useContext(USERCONTEXT);
   const [error, setError] = useState(null);
