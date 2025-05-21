@@ -52,7 +52,7 @@ app.use("/api/rooms", require("./routes/rooms"));
 app.use("/api/rollcall", require("./routes/rollcall"));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
 server.listen(process.env.PORT, () =>
