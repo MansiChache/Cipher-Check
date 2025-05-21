@@ -1,7 +1,9 @@
 export const SOCKET_URL = "/";
 
 export function FETCH(route = "/api", method = "GET", token = null, body = null) {
-    const authHeader = { 'Authorization': `BEARER ${token}` };
+    token = localStorage.getItem("token");
+    const authHeader = { 
+        'Authorization': `Bearer ${token}` };
     const linkHeaders = {
         "GET": { headers: { ...authHeader } },
         "POST": {
@@ -13,5 +15,6 @@ export function FETCH(route = "/api", method = "GET", token = null, body = null)
             body: JSON.stringify(body)
         }
     }
+    localStorage.getItem('token');
     return fetch(`${SOCKET_URL}api${route}`, linkHeaders[method]).then(res => res.json());
 }

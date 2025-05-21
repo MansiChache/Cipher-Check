@@ -23,10 +23,11 @@ export default function Signup({ goToPage }) {
       setError("Password doesn't match.");
       return;
     };
-    FETCH("/api/auth/signup", "POST", null, { uid, password, fname, lname, emoji }, false)
+    FETCH("/auth/signup", "POST", null, { uid, password, fname, lname, emoji }, false)
       .then(res => {
         if (res.response === "fail") throw res.message;
-        localStorage.setItem("token", res.payload); // Store the token
+        localStorage.setItem("token", res.payload.jwt_token); // Store the token
+        console.log("Token stored in browser:", localStorage.getItem("token")); // ✅ ADD THIS
         form['signup-button'].disabled = false;
         setUser(res.payload);
       }).catch(err => {

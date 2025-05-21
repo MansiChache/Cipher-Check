@@ -2,10 +2,11 @@ const route = require('express').Router();
 const { User } = require("../models/model");
 const { signToken } = require("../middleware/authentication");
 const { encrypt, decrypt } = require("../utils/cipher");
-
+require('dotenv').config();
 
 route.post("/login", (req, res) => {
     const { uid, password } = req.body;
+    console.log("Loaded JWT_SECRET:", process.env.JWT_SECRET); // ✅ Check if loaded
     User.findOne({ uid })
         .then(user => {
             if (!user) throw { message: "USER NOT FOUND" }

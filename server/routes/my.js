@@ -1,7 +1,8 @@
-const route = require("express").Router();
+ const route = require("express").Router();
+const { verifyJWT } = require("../middleware/authentication");
 const { User } = require("../models/model")
 
-route.get("/", (req, res) => {
+route.get("/", verifyJWT, (req, res) => {
     User.findById(req.user._id)
         .select("-password")
         .populate({ path: "rooms", select: "-participants", populate: { path: "admin", select: "emoji fname lname" } })
@@ -10,7 +11,7 @@ route.get("/", (req, res) => {
 })
 
 
-route.post("/edit", (req, res) => {
+route.post("/edit", verifyJWT, (req, res) => {
     User.findById(req.user._id)
         .then(user => {
             user.emoji = req.body.emoji || user.emoji;

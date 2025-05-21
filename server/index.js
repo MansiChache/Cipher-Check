@@ -24,7 +24,7 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB"));
 
-// !IN DEV ONLY
+
 if (isDEV) {
   const cors = require("cors");
   app.use(cors());
@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-app.use(express.static(path.join(_dirname, "client/build")));
+// app.use(express.static(path.join(_dirname, "client/build")));
 
 module.exports.io = io;
 
@@ -57,9 +57,9 @@ app.use("/api/rollcall", require("./routes/rollcall"));
 //   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+// });
 
 server.listen(process.env.PORT, () =>
   console.log("Server Running on http://localhost:" + process.env.PORT)

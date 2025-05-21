@@ -13,10 +13,15 @@ export default function Login({ goToPage }) {
     const uid = Number(form.uid.value),
       password = form.password.value;
     setError(null);
-    FETCH("/api/auth/login", "POST", null, { uid, password })
+    FETCH("/auth/login", "POST", null, { uid, password })
       .then(res => {
         if (res.response === "fail") throw res.message;
+        // Store only the token string in localStorage
+        localStorage.setItem("token", res.payload.jwt_token);
         form['login-button'].disabled = false;
+        // Set user context, but exclude the token from user data if you want
+        // const { jwt_token, ...userData } = res.payload;
+        // setUser(userData);
         setUser(res.payload);
       })
       .catch(err => {
