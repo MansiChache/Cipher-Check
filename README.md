@@ -41,7 +41,7 @@ Cipher-Check/
 │   ├── routes/
 │   ├── models/
 │   ├── middleware/
-│   └── server.js
+│   └── index.js
 ├── .env
 ├── package.json
 └── README.md
