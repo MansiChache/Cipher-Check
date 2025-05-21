@@ -1,7 +1,6 @@
 require("dotenv").config();
 let socketCORS = {};
 
-// ! ONLY FOR DEV
 const isDEV = process.env.ENVIRONMENT === "DEV";
 if (isDEV) {
   socketCORS = {
@@ -32,9 +31,8 @@ if (isDEV) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-// app.use(express.static(path.join(_dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 module.exports.io = io;
 
@@ -53,13 +51,9 @@ app.use("/api/my", require("./routes/my"));
 app.use("/api/rooms", require("./routes/rooms"));
 app.use("/api/rollcall", require("./routes/rollcall"));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-// });
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 server.listen(process.env.PORT, () =>
   console.log("Server Running on http://localhost:" + process.env.PORT)

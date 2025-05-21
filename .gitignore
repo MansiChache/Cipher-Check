@@ -9,6 +9,7 @@ build
 rollcall.log
 
 
-# Extras
-servertest
-dummydata.txt
+node_modules
+.env
+client/node_modules
+client/build
